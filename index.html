@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Amicable Numbers</title>
+  </head>
+
+  <body>
+    <h1>Amicable Numbers</h1>
+    <script language="javascript">
+      var num1;
+      var num2;
+      var display;
+
+      window.onload = function()
+      {
+        document.getElementById("btn").addEventListener("click", btnClick);
+        // document.getElementById("test").addEventListener("click", test);
+      }
+
+      function isFactor(num, factor)
+      {
+        if (factor == 0) {
+          return false;
+        }
+        return num % factor == 0;
+      }
+
+      function displayNums()
+      {
+        display = document.getElementById("display");
+        num1 = parseInt(document.getElementById("num1").value);
+        num2 = parseInt(document.getElementById("num2").value);
+        if (isNaN(num1) || isNaN(num2)) {
+          alert("Please have numbers in both input fields.");
+          return;
+        }
+        display.innerHTML =
+        "<div>Number 1 is " + num1 + "</div><br/>" +
+        "<div>Number 2 is " + num2 + "</div><br/>";
+      }
+      
+      // function test()
+      // {
+      //   let num1 = 284;
+      //   let num2 = 23;
+      //   let arr = [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110] ;
+      //
+      //   alert(num2 + " is a factor of " + num1 + "? " + isFactor(num1, num2));
+      //   showArray(arr);
+      //   document.getElementById("display").innerText += " sum : " + addArray(arr);
+      //   alert("possible factors of " + num1 + " are " + getFactors(num1).toString());
+      //   alert("possible factors of " + num2 + " are " + getFactors(num2).toString());
+      // }
+
+      function showArray(array)
+      {
+        if (Array.isArray(array)) {
+          display.innerHTML += array.toString();
+        } else {
+          alert("Not an array");
+        }
+      }
+
+      function addArray(array)
+      {
+        let sum = 0;
+        array.forEach(function(a) {
+          sum += a;
+        });
+        return sum;
+      }
+
+      function getFactors(num)
+      {
+        let possibleFactors = [];
+        let factor = num;
+        while (factor-- > 0) {
+          if (isFactor(num, factor)) {
+            possibleFactors.push(factor);
+          }
+        }
+        return possibleFactors;
+      }
+
+      function btnClick()
+      {
+        displayNums();
+        if (!isNaN(num1) && !isNaN(num2)) {
+          let factors1 = getFactors(num1);
+          let factors2 = getFactors(num2);
+          let amicable = addArray(factors1) == num2 && addArray(factors2) == num1;
+          display.innerHTML += "<div>Number 1 has factor(s): ";
+          showArray(factors1);
+          display.innerHTML += "</div><br/><br/>";
+
+          display.innerHTML += "<div>Number 2 has factor(s): ";
+          showArray(factors2);
+          display.innerHTML += "</div><br/><br/>";
+
+          display.innerHTML += "<div>Number 1 and Number 2 are " +
+            (amicable ? "" : "not ") + "amicable numbers.</div><br/>";
+        }
+      }
+
+    </script>
+
+    <form>
+      Number 1 <input type="number" id="num1"/><br/><br/>
+      Number 2 <input type="number" id="num2"/><br/><br/>
+      <input type="button" id="btn" value="Check Number 1 and 2 are Amicable Numbers"/>
+      <!-- <input type="button" id="test" value="Click to test"/> -->
+      <br/>
+    </form><br/>
+    <div id="display"></div>
+    <div>
+  </body>
+</html>
